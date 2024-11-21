@@ -5,7 +5,7 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const contenedorArticulos = document.getElementById("Tienda");
 
 // acceder al archivo JSON
-fetch("../data/articulos.JSON")
+fetch("https://nahuel30.github.io/E-commerce-JS/data/articulos.JSON")
 .then(response => response.json())
 .then(data => {
 
