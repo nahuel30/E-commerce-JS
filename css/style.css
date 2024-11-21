@@ -1,4 +1,3 @@
-/* General */
 body, html {
     margin: 0;
     padding: 0;
@@ -22,7 +21,6 @@ body, html {
     font-size: 2.5rem;
     font-weight: bold;
 }
-
 
 .articulos{
     background-color: #dfe6e9;
@@ -68,7 +66,7 @@ body, html {
 }
 
 
-.botonIrAlCarrito:hover, .boton:hover, .botonBorrar:hover {
+.boton:hover, .botonBorrar:hover {
     background-color: #a8ab40; 
 }
 

@@ -49,8 +49,4 @@ fetch("../data/articulos.JSON")
         localStorage.setItem("carrito", JSON.stringify(carrito));
     };
 
-    })
-
-.catch(error => {
-    console.error("Error al cargar los datos:", error);
 });
