@@ -1,140 +1,56 @@
-const productoContainer = document.getElementById("productosProd");
+// para recuperar el carrito desde localStorage, o inicializarlo como vacío si es la primera vez:
 
-const carritoContainer = document.getElementById("productosCarrito");
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-const divTotal = document.getElementById("total");
+const contenedorArticulos = document.getElementById("Tienda");
 
-class Producto {
-    constructor(nombre, precio, id) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.id = id;
-    }
-}
+// acceder al archivo JSON
+fetch("../data/articulos.JSON")
+.then(response => response.json())
+.then(data => {
 
-const productos = [
-    {
-        nombre: "Vinilo Soda Stereo",
-        precio: 50,
-        id: 17
-    },
-    {
-        nombre: "Toca Discos Telefunken",
-        precio: 200,
-        id: 222
-    },
-    {
-        nombre: "Parlantes Wachimiro",
-        precio: 150,
-        id: 157
-    }
-];
+    data.forEach(el =>{
+        const articulo = document.createElement("div");
+        const img = document.createElement("img");
+        const nombre = document.createElement("h3");
+        const precio = document.createElement("p");
+        
+        const botonAgregarAlCarrito = document.createElement("button");
+    
+        botonAgregarAlCarrito.className = "boton"
+    
+        botonAgregarAlCarrito.textContent = "Agregar al Carrito"
+    
+        botonAgregarAlCarrito.addEventListener("click", () => agregarAlCarrito(el));
+    
+        articulo.className = "articulo";
+    
+        nombre.innerText = el.nombre;
+        precio.innerText = `$${el.precio}`;
+        img.src = el.img;
+        img.alt = el.nombre;
+        
+        articulo.appendChild(img);
+        articulo.appendChild(nombre);
+        articulo.appendChild(precio);
+        
+        articulo.appendChild(botonAgregarAlCarrito);
+    
+        contenedorArticulos.appendChild(articulo);
+    })
+    
+    function agregarAlCarrito(el) {
+        const itemExistente = carrito.find(item => item.id === el.id);
+        if (itemExistente) {
+           itemExistente.cantidad += 1;
+        } else {
+            carrito.push({ ...el, cantidad: 1 });
+        }
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    };
 
-const carrito = [];
+    })
 
-// Agregar el array de productos al html de productos
-
-productos.forEach(el =>{
-    // Se crean por separado porque en el carrito no lleva el boton
-    const producto = crearProductoGeneral(el);
-    const boton = crearBotonAgregar(el);
-
-    producto.appendChild(boton);
-
-    productoContainer.appendChild(producto);
+.catch(error => {
+    console.error("Error al cargar los datos:", error);
 });
-
-// Inputs para agregar productos a la lista
-
-const formulario = document.createElement("div");
-formulario.className = "formulario";
-
-const nombreForm = document.createElement("input");
-nombreForm.placeholder = "Nombre";
-nombreForm.id = "nombreForm";
-
-const precioForm = document.createElement("input");
-precioForm.placeholder = "Precio";
-precioForm.id = "precioForm";
-
-const idForm = document.createElement("input");
-idForm.placeholder = "Id";
-idForm.id = "idForm";
-
-const botonForm = document.createElement("button");
-botonForm.textContent = "Añadir a los productos";
-botonForm.addEventListener("click", () => agregarProducto());
-
-formulario.appendChild(nombreForm);
-formulario.appendChild(precioForm);
-formulario.appendChild(idForm);
-formulario.appendChild(botonForm);
-
-productoContainer.appendChild(formulario);
-
-function crearProductoGeneral(prod){
-    const producto = document.createElement("div");
-    producto.className = "producto";
-
-    const nombre = document.createElement("h3");
-
-    const precio = document.createElement("p");
-
-    const id = document.createElement("p");
-
-    nombre.innerText = prod.nombre;
-    precio.innerText = `$${prod.precio}`;
-    id.innerText = `ID: ${prod.id}`;
-
-    producto.appendChild(nombre);
-    producto.appendChild(precio);
-    producto.appendChild(id);
-
-    return producto;
-}
-
-function crearBotonAgregar(el){
-    const boton = document.createElement("button");
-    boton.textContent = "Añadir al carrito";
-    boton.addEventListener("click", () => agregarAlCarrito(el));
-
-    return boton;
-}
-
-// Agregar los productos al div de carrito
-
-function agregarAlCarrito(prod) {
-    carrito.push(prod);
-
-    carritoContainer.innerHTML = '';
-
-    carrito.forEach(el =>{
-        const producto = crearProductoGeneral(el);
-        carritoContainer.appendChild(producto);
-    });
-
-    // Mostrar el total
-    const total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
-    divTotal.textContent = `Total: $${total}`;
-}
-
-function agregarProducto(){
-    const nombre = document.getElementById("nombreForm").value;
-    const precio = parseFloat(document.getElementById("precioForm").value);
-    const id = parseInt(document.getElementById("idForm").value);
-
-    const producto = new Producto(nombre, precio, id);
-    productos.push(producto);
-
-    const nuevoProducto = crearProductoGeneral(producto);
-
-    const boton = crearBotonAgregar(producto);
-
-    nuevoProducto.appendChild(boton);
-
-    productoContainer.appendChild(nuevoProducto);
-
-    nombreForm.value = '';
-    precioForm.value = '';
-    idForm.value = '';
-}

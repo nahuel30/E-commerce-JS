@@ -1,0 +1,37 @@
+[  
+    {
+        "id": 1, 
+        "nombre": "Parlantes", 
+        "precio": 2500,
+        "img": "./img/parlantes.jpg",
+        "cantidad": 1
+    },
+    {
+        "id": 2, 
+        "nombre": "Disco", 
+        "precio": 700,
+        "img": "./img/disco.jpg",
+        "cantidad": 1
+    },
+    {
+        "id": 3, 
+        "nombre": "Guitarra", 
+        "precio": 2000,
+        "img": "./img/guitarra.jpg",
+        "cantidad": 1
+    },
+    {
+        "id": 4, 
+        "nombre": "Tocadiscos", 
+        "precio": 8000,
+        "img": "./img/tocadiscos.jpg",
+        "cantidad": 1
+    },
+    {
+        "id": 5, 
+        "nombre": "Bateria", 
+        "precio": 4500,
+        "img": "./img/bateria.jpg",
+        "cantidad": 1
+    }
+]
