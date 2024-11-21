@@ -68,8 +68,8 @@ body, html {
 }
 
 
-.boton:hover, .botonBorrar:hover {
-    background-color: #a8ab40;
+.botonIrAlCarrito:hover, .boton:hover, .botonBorrar:hover {
+    background-color: #a8ab40; 
 }
 
 .total {
@@ -80,6 +80,14 @@ body, html {
     padding: 10px;
     border-radius: 5px;
     margin: 20px;
+}
+
+.cantidadTotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
 }
 
 .botones{
@@ -116,6 +124,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #ddd;
+}
+
+.product-item:last-child {
+    border-bottom: none;
 }
 
 .total-lista {
